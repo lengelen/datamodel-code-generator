@@ -37,6 +37,7 @@ from datamodel_code_generator.model.base import (
     DataModel,
     DataModelFieldBase,
 )
+from datamodel_code_generator.model.pydantic.base_model import BaseModel as CodegenBaseModel
 from datamodel_code_generator.model.enum import Enum, Member
 from datamodel_code_generator.parser import DefaultPutDict, LiteralType
 from datamodel_code_generator.reference import ModelResolver, Reference
@@ -593,6 +594,8 @@ class Parser(ABC):
         for model, duplicate_models in model_to_duplicate_models.items():
             for duplicate_model in duplicate_models:
                 for child in duplicate_model.reference.children[:]:
+                    if type(child) == CodegenBaseModel:
+                        continue
                     child.replace_reference(model.reference)
                 models.remove(duplicate_model)
 
