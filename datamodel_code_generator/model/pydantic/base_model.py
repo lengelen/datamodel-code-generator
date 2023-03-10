@@ -227,7 +227,7 @@ class BaseModel(DataModel):
         if additionalProperties is not None or allow_extra_fields:
             config_parameters['extra'] = (
                 'Extra.allow'
-                if additionalProperties or allow_extra_fields
+                if additionalProperties and allow_extra_fields
                 else 'Extra.forbid'
             )
             
