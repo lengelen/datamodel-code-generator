@@ -223,13 +223,15 @@ class BaseModel(DataModel):
 
         additionalProperties = self.extra_template_data.get('additionalProperties')
         allow_extra_fields = self.extra_template_data.get('allow_extra_fields')
+        config_parameters['extra'] = 'Extra.forbid' 
         if additionalProperties is not None or allow_extra_fields:
             config_parameters['extra'] = (
                 'Extra.allow'
                 if additionalProperties or allow_extra_fields
                 else 'Extra.forbid'
             )
-            self._additional_imports.append(IMPORT_EXTRA)
+            
+        self._additional_imports.append(IMPORT_EXTRA)
 
         for config_attribute in 'allow_population_by_field_name', 'allow_mutation':
             if config_attribute in self.extra_template_data:
